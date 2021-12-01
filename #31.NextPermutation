@@ -1,0 +1,29 @@
+#31 next permutation
+class Solution(object):
+    def nextPermutation(self, nums):
+        length = len(nums)
+        flag = False
+        if length == 1:
+            return
+        i = length - 2
+        while i >= 0:
+            j = length - 1
+            while j > i:
+                if nums[i] < nums[j]:
+                    nums[i],nums[j] = nums[j],nums[i]
+                    flag = True
+                    # Sort elements after nums[i]
+                    if length-i-1 >= 2:
+                        for n in range(i+1,length-1):
+                            fl = True
+                            for m in range(i+1,length-n+i):
+                                if nums[m] > nums[m+1]:
+                                    nums[m],nums[m+1] = nums[m+1],nums[m]
+                                    fl = False
+                            if fl:
+                                break
+                    return 
+                j -= 1
+            i -= 1
+        if not flag:
+            nums.reverse()
